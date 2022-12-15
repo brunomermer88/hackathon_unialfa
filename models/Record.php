@@ -112,10 +112,12 @@ abstract class Record {
 
     }
 
-    public function load($id){
+    public function load($id=null){
         // monta a instrucao SELECT
         $sql = "SELECT * FROM {$this->getEntity()}";
-        $sql .= " WHERE {$this->getCampoID()} = ". (int) $id;
+        if(!is_null($id)){
+            $sql .= " WHERE {$this->getCampoID()} = ". (int) $id;
+        }
 
         // obtem transcao ativa
         if($conn = Transacao::get())

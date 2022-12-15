@@ -48,9 +48,9 @@
         $(document).ready(function(){
 
             // Cadastrar peso
-            var valorPeso = $("#peso").val();
             $("#cadastrarPeso").click(function(){
-                $.post(window.location.origin+"/imc.php?cadastrar=1", {peso: valorPeso}, function(data, status){
+                var valorPeso = $("#peso").val();
+                $.post(window.location.origin+"/imc.php", {action: 'cadastrar', peso: valorPeso, codigoAluno: 1}, function(data, status){
                     alert("Data: " + data + "\nStatus: " + status);
                 });
             });

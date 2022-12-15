@@ -6,37 +6,31 @@ ini_set("display_errors", 1);
 require_once 'Connection.php';
 require_once 'Transacao.php';
 
-
 require_once 'Logger.php';
 require_once 'LoggerTXT.php';
 
-require_once 'Record.php';
-require_once 'Pessoa.php';
-require_once 'Estudante.php';
-require_once 'Professor.php';
-require_once 'Aluno.php';
+require_once 'models/Record.php';
+require_once 'models/Imc.php';
+require_once 'models/Aluno.php';
 
 try
 {
 
-    $params = extract($_REQUEST);
+    extract($_POST);
 
-    if($cadastrar){
-
-        print_r($params);
-        return;
+    if($action){
 
         Transacao::open('arquivoConfigBase');
-
-        Transacao::setLogger(new LoggerTXT('log.txt'));
-
-        $pessoa = new Aluno();
-        $pessoa->nome = "Bruno";
-        $pessoa->cpf = "333333333";
-        $pessoa->dataNascimento = "1988-08-15";
-        $pessoa->store();
-
+        Transacao::setLogger(new LoggerTXT('logs/log.txt'));
         
+        $aluno = new Aluno($codigoAluno);
+        $aluno->altura = 1.90;
+
+        $imc = new Imc();
+        $imc->peso = $peso;
+        $imc->imc = $peso / ($aluno->altura*$aluno->altura);
+        $imc->idAluno = $aluno->id;
+        $imc->store();
 
         Transacao::close();
 
