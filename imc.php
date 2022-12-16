@@ -62,6 +62,19 @@ try
 
     }
 
+    if($action == "listaImcPorAluno"){
+
+        Transacao::open('arquivoConfigBase');
+        Transacao::setLogger(new LoggerTXT('logs/log.txt'));
+
+        $imc = new Imc();
+        echo json_encode($imc->tabelaListaImcs($codigoAluno));
+        return;
+
+        Transacao::close();
+
+    }
+
 
 }
 catch(Exception $e){

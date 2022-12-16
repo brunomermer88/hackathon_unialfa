@@ -48,6 +48,15 @@
             text-align:center;
         }
 
+        #listaImcPorAluno {
+            width:auto;
+            max-width:800px;
+            border:1px solid blue;
+            margin:0 auto;
+            padding:4px;
+            text-align:center;
+        }
+
     </style>
 
 
@@ -55,25 +64,28 @@
 
         $(document).ready(function(){
 
+            var paramCodigoAluno = <?php echo $_GET['codigoAluno'] ?? 1; ?>
+
+            $.post(window.location.origin+"/imc.php", {action: 'listaImcPorAluno',codigoAluno:paramCodigoAluno}, function(data, status){
+                $("#listaImcPorAluno").html(data);
+            },"json");
+
             $.post(window.location.origin+"/imc.php", {action: 'lista'}, function(data, status){
-                alert(data);
-               //$("#listaAlunos").val(data);
                $("#listaAlunos").html(data);
             },"json");
 
-            $.post(window.location.origin+"/imc.php", {action: 'cadastro', codigoAluno: 1}, function(data, status){
+            $.post(window.location.origin+"/imc.php", {action: 'cadastro', codigoAluno: paramCodigoAluno}, function(data, status){
                 var pessoa = data;
                 $("#nomeAluno").val(pessoa.nome);
                 $("#codigoAluno").val(pessoa.codigoAluno);
                 $("#alturaAluno").val(pessoa.altura);
-
             },"json");
 
             // Cadastrar peso
             $("#cadastrarPeso").click(function(){
                 var valorPeso = $("#peso").val();
-                $.post(window.location.origin+"/imc.php", {action: 'cadastrar', peso: valorPeso, codigoAluno: 1}, function(data, status){
-                    alert("Data: " + data + "\nStatus: " + status);
+                $.post(window.location.origin+"/imc.php", {action: 'cadastrar', peso: valorPeso, codigoAluno: paramCodigoAluno}, function(data, status){
+                    window.location.reload();
                 });
             });
 
@@ -94,6 +106,10 @@
     <div>
     <br />
     <div id="listaAlunos">
+
+    </div>
+    <br />
+    <div id="listaImcPorAluno">
 
     </div>
     <br />

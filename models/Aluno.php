@@ -14,7 +14,7 @@ class Aluno extends Record {
         $tabela .= '<tr><th style="border:1px solid gray;">Cód.</th><th style="border:1px solid gray;">Nome</th></tr>';
 
         foreach($alunos as $aluno){
-            $tabela .= "<tr><td>{$aluno['id']}</td><td>{$aluno['nome']}</td></tr>";
+            $tabela .= "<tr><td><a href='cadastraIMCAluno.php?codigoAluno={$aluno['id']}'>{$aluno['id']}</a></td><td>{$aluno['nome']}</td></tr>";
         }
 
         $tabela .= "</table>";
