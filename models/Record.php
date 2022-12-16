@@ -115,7 +115,7 @@ abstract class Record {
     public function load($id=null){
         // monta a instrucao SELECT
         $sql = "SELECT * FROM {$this->getEntity()}";
-        if(!is_null($id)){
+        if(!is_null($id) && $id != "*"){
             $sql .= " WHERE {$this->getCampoID()} = ". (int) $id;
         }
 
@@ -138,6 +138,31 @@ abstract class Record {
         {
             throw new Exception('Não há transação ativa!');
         }
+    }
+
+    public function loadAll(){
+         // monta a instrucao SELECT
+         $sql = "SELECT * FROM {$this->getEntity()}";
+      
+         // obtem transcao ativa
+         if($conn = Transacao::get())
+         {
+             // cria mensagem de log e executa a consulta
+             Transacao::log($sql);
+             $result = $conn->query($sql);
+             // se retornou algum dado
+             if($result)
+             {
+                 // retorna os dados em forma de objeto
+                 $lista = $result->fetchAll(PDO::FETCH_ASSOC);
+ 
+             }
+             return $lista;
+         }
+         else
+         {
+             throw new Exception('Não há transação ativa!');
+         }
     }
 
     public function delete($id = NULL){

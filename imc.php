@@ -18,14 +18,13 @@ try
 
     extract($_POST);
 
-    if($action){
+    if($action == "cadastrar"){
 
         Transacao::open('arquivoConfigBase');
         Transacao::setLogger(new LoggerTXT('logs/log.txt'));
         
         $aluno = new Aluno($codigoAluno);
-        $aluno->altura = 1.90;
-
+        
         $imc = new Imc();
         $imc->peso = $peso;
         $imc->imc = $peso / ($aluno->altura*$aluno->altura);
@@ -35,6 +34,34 @@ try
         Transacao::close();
 
     }
+
+    if($action == "cadastro"){
+
+        Transacao::open('arquivoConfigBase');
+        Transacao::setLogger(new LoggerTXT('logs/log.txt'));
+
+        $aluno = new Aluno($codigoAluno);
+        $aluno = json_encode(array("nome"=>$aluno->nome,"codigoAluno"=>$aluno->id,"altura"=>$aluno->altura));
+        echo $aluno;
+        return;
+
+        Transacao::close();
+
+    }
+
+    if($action == "lista"){
+
+        Transacao::open('arquivoConfigBase');
+        Transacao::setLogger(new LoggerTXT('logs/log.txt'));
+
+        $aluno = new Aluno();
+        echo json_encode($aluno->tabelaListaAlunos());
+        return;
+
+        Transacao::close();
+
+    }
+
 
 }
 catch(Exception $e){

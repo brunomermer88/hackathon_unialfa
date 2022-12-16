@@ -21,8 +21,8 @@ try
     
     $aluno = new Aluno();
     $aluno->altura = 1.90;
-    $aluno->nome = "Bruno Leonardo Mermer";
-    $aluno->cpf = "066.354.069-05";
+    $aluno->nome = "Gael Sena";
+    $aluno->cpf = "111.222.333-44";
     $aluno->dataNascimento = "1988-08-15";
     $aluno->store();
 
