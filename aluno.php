@@ -16,16 +16,29 @@ require_once 'models/Aluno.php';
 try
 {
 
-    Transacao::open('arquivoConfigBase');
-    Transacao::setLogger(new LoggerTXT('logs/log.txt'));
-    
-    $aluno = new Aluno();
-    $aluno->altura = 1.90;
-    $aluno->nome = "Gael Sena";
-    $aluno->cpf = "111.222.333-44";
-    $aluno->dataNascimento = "1988-08-15";
-    $aluno->store();
+    extract($_POST);
 
+    if($action == "cadastrar"){
+
+        Transacao::open('arquivoConfigBase');
+        Transacao::setLogger(new LoggerTXT('logs/log.txt'));
+        
+        $aluno = new Aluno();
+        if($codigoAluno){
+            $aluno = new Aluno($codigoAluno);
+        }
+
+        $aluno->altura = $altura;
+        $aluno->nome = $nomeAluno;
+        $aluno->cpf = $cpf;
+        $aluno->dataNascimento = $dataNascimento;
+        
+        $aluno->store();
+
+        Transacao::close();
+
+    }
+    
     Transacao::close();
 
 }
