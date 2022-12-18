@@ -81,6 +81,25 @@ try
 
     }
 
+    if($action == "exportarExcel"){
+
+        Transacao::open('arquivoConfigBase');
+        Transacao::setLogger(new LoggerTXT('logs/log.txt'));
+
+        $imc = new Imc();
+        $dados = $imc->tabelaListaImcs($codigoAluno);
+        
+        $fileName = "rel_".date('His').".php";
+        $myfile = fopen("arquivosTemporarios/".$fileName, "w+") or die("Unable to open file!");
+        fwrite($myfile, $dados);
+        fclose($myfile);
+        echo $fileName;
+        return;
+
+        Transacao::close();
+
+    }
+
 
 }
 catch(Exception $e){

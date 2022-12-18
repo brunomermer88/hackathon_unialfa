@@ -32,7 +32,9 @@ a {
 
 <h1>hackton.unialfa</h1>
 
-<p><a href="views/cadastralAlunoProfessor.php">Usuarios</a> | <a href="views/cadastraIMCAluno.php">IMC</a> | <a href="controllers/logout.php">sair</a></p>
+<p><a href="views/cadastralAlunoProfessor.php">Usuarios</a> | <a href="views/cadastraIMCAluno.php">IMC</a></p>
+
+<p><a href="controllers/logout.php">sair</a></p>
 
 </body>
 </html>

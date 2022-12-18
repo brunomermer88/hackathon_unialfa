@@ -64,6 +64,15 @@ include '../controllers/checkSession.php';
             color:black;
         }
 
+        #exportarParaExcel {
+            width:auto;
+            margin:0 auto;
+            max-width:800px;
+            color:green;
+            text-align:right;
+            cursor:pointer;
+        }
+
     </style>
 
 
@@ -96,6 +105,12 @@ include '../controllers/checkSession.php';
                 });
             });
 
+            $("#exportarExcel").click(function(){
+                $.post(window.location.origin+"/imc.php", {action: 'exportarExcel', codigoAluno: paramCodigoAluno}, function(data, status){
+                    window.location.replace('http://faculdade.local/views/excelIMCPorAluno.php?fileName='+data);
+                });
+            });
+
         });
 
     </script>
@@ -116,6 +131,7 @@ include '../controllers/checkSession.php';
 
     </div>
     <br />
+    <p id="exportarParaExcel"><a id="exportarExcel">Exportar para o Excel</a></p>
     <div id="listaImcPorAluno">
 
     </div>

@@ -1,0 +1,1 @@
+<table style="text-align:center;margin:0 auto;"><tr><th style="border:1px solid gray;">IMC por aluno</th></tr><tr><td style="border:1px solid gray;">Sem registro</td></tr></table>
