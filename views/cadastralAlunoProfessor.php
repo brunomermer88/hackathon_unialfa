@@ -72,24 +72,31 @@
 
             $.post(window.location.origin+"/imc.php", {action: 'lista'}, function(data, status){
                 var textoTratado = data.replaceAll("cadastraIMCAluno", "cadastralAlunoProfessor");
-                console.log(data);
                $("#lista").html(textoTratado);
             },"json");
 
             $.post(window.location.origin+"/imc.php", {action: 'cadastro', codigoAluno: paramCodigoAluno}, function(data, status){
-                var pessoa = data;
-                $("#nomeAluno").val(pessoa.nome);
-                $("#codigoAluno").val(pessoa.codigoAluno);
-                $("#alturaAluno").val(pessoa.altura);
+                if(paramCodigoAluno){
+                    var pessoa = data;
+                    //console.log(pessoa);
+                    $("#nomeAluno").val(pessoa.nome);
+                    $("#codigoAluno").val(pessoa.codigoAluno);
+                    $("#alturaAluno").val(pessoa.altura);
+                    $("#cpfAluno").val(pessoa.cpf);
+                    $("#dataNascimento").val(pessoa.dataNascimento);
+                    $('select[name=tipoCadastro]').val(data.tipo);
+                }
             },"json");
 
             // Cadastrar ou atualizar
             $("#cadastrar").click(function(){
+
                 var codigoAluno = $("#codigoAluno").val();
                 var aluno = $("#nomeAluno").val();
                 var cpf = $("#cpfAluno").val();
                 var dataNascimento = $("#dataNascimento").val();
                 var alturaAluno = $("#alturaAluno").val();
+                var tipo = $("#tipoCadastro").val();
 
                 $.post(window.location.origin+"/aluno.php", 
                 {action: 'cadastrar', 
@@ -97,12 +104,17 @@
                 nomeAluno: aluno,
                 cpf: cpf,
                 dataNascimento: dataNascimento,
-                altura: alturaAluno
+                altura: alturaAluno,
+                tipo: tipo
                 }, 
                 function(data, status){
                     window.location.reload();
                 });
 
+            });
+
+            $("#novo").click(function(){
+                window.location.replace(window.location.origin+window.location.pathname);
             });
 
         });
@@ -120,7 +132,15 @@
             <p>CPF: <input type="text" id="cpfAluno" /></p>
             <p>Data nascimento: <input type="text" id="dataNascimento" /></p>
             <p>Altura: <input type="text" id="alturaAluno" /></p>
+            <p>Tipo: 
+                <select name="tipoCadastro" id="tipoCadastro">
+                    <option value="Aluno">Aluno</option>
+                    <option value="Professor">Professor</option>
+                </select>
+            </p>
             <input type="button" value="Cadastrar" id="cadastrar" />
+            <input type="button" value="Novo usuário" id="novo" />
+            
         </form>
     </div>
 

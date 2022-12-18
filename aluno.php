@@ -11,7 +11,7 @@ require_once 'LoggerTXT.php';
 
 require_once 'models/Record.php';
 require_once 'models/Imc.php';
-require_once 'models/Aluno.php';
+require_once 'models/Usuario.php';
 
 try
 {
@@ -23,16 +23,20 @@ try
         Transacao::open('arquivoConfigBase');
         Transacao::setLogger(new LoggerTXT('logs/log.txt'));
         
-        $aluno = new Aluno();
+        $aluno = new Usuario();
         if($codigoAluno){
-            $aluno = new Aluno($codigoAluno);
+            $aluno = new Usuario($codigoAluno);
         }
+
+        $dataUsuario = str_replace("/", "-", $dataNascimento);
+        $dataBanco =  date('Y-m-d', strtotime($dataUsuario));
 
         $aluno->altura = $altura;
         $aluno->nome = $nomeAluno;
         $aluno->cpf = $cpf;
-        $aluno->dataNascimento = $dataNascimento;
-        
+        $aluno->data_nascimento = $dataBanco;
+        $aluno->tipo = $tipo;
+
         $aluno->store();
 
         Transacao::close();

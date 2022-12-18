@@ -11,7 +11,7 @@ require_once 'LoggerTXT.php';
 
 require_once 'models/Record.php';
 require_once 'models/Imc.php';
-require_once 'models/Aluno.php';
+require_once 'models/Usuario.php';
 
 try
 {
@@ -23,7 +23,7 @@ try
         Transacao::open('arquivoConfigBase');
         Transacao::setLogger(new LoggerTXT('logs/log.txt'));
         
-        $aluno = new Aluno($codigoAluno);
+        $aluno = new Usuario($codigoAluno);
         
         $imc = new Imc();
         $imc->peso = $peso;
@@ -40,8 +40,12 @@ try
         Transacao::open('arquivoConfigBase');
         Transacao::setLogger(new LoggerTXT('logs/log.txt'));
 
-        $aluno = new Aluno($codigoAluno);
-        $aluno = json_encode(array("nome"=>$aluno->nome,"codigoAluno"=>$aluno->id,"altura"=>$aluno->altura));
+        $aluno = new Usuario($codigoAluno);
+
+        $dataUsuario = str_replace("/", "-", $aluno->data_nascimento);
+        $dataBanco =  date('d-m-Y', strtotime($dataUsuario));
+
+        $aluno = json_encode(array("nome"=>$aluno->nome,"codigoAluno"=>$aluno->id,"altura"=>$aluno->altura,"cpf"=>$aluno->cpf,"dataNascimento"=>$dataBanco,"tipo"=>$aluno->tipo));
         echo $aluno;
         return;
 
@@ -54,8 +58,8 @@ try
         Transacao::open('arquivoConfigBase');
         Transacao::setLogger(new LoggerTXT('logs/log.txt'));
 
-        $aluno = new Aluno();
-        echo json_encode($aluno->tabelaListaAlunos());
+        $aluno = new Usuario();
+        echo json_encode($aluno->tabelaListaUsuarios());
         return;
 
         Transacao::close();
@@ -68,7 +72,7 @@ try
         Transacao::setLogger(new LoggerTXT('logs/log.txt'));
 
         $imc = new Imc();
-        echo json_encode($imc->tabelaListaImcs($codigoAluno));
+        echo json_encode($imc->tabelaListaUsuarios($codigoAluno));
         return;
 
         Transacao::close();
