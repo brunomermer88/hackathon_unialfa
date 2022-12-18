@@ -72,7 +72,7 @@ try
         Transacao::setLogger(new LoggerTXT('logs/log.txt'));
 
         $imc = new Imc();
-        echo json_encode($imc->tabelaListaUsuarios($codigoAluno));
+        echo json_encode($imc->tabelaListaImcs($codigoAluno));
         return;
 
         Transacao::close();

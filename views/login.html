@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>hackton.unialfa</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<style>
+
+h1,p,a,form {
+    text-align:center;
+    color:black;
+    font-family:verdana;
+    font-size:14px;
+    text-decoration:none;
+    padding:4px;
+}
+
+a {
+    font-size:18px;
+    border:1px solid gray;
+    padding:4px;
+}
+
+form {
+    width:500px;
+    margin:0 auto;
+    border: 1px solid gray;
+}
+
+form input {
+    margin:6px;
+}
+
+</style>
+
+
+<script>
+
+    $(document).ready(function(){
+
+        $("#entrar").click(function(){
+
+            alert('aqui');
+
+            var login = $("#login").val();
+            var senha = $("#senha").val();
+
+            if (login == "" && senha == ""){
+                $("#alertas").html('<div style="margin:6px;font-size:14px;text-align:center;font-family:verdana;color:red;font-weight:bold;">Usuario ou senha inválidos.</div>');
+            }
+
+            $.post(window.location.origin+"/login.php", 
+            {action: 'cadastrar', 
+            login: login,
+            senha: senha,
+            }, 
+            function(data, status){
+                window.location.reload();
+            });
+
+        });
+
+    });
+
+</script>
+
+</head>
+<body>
+
+<h1>hackton.unialfa</h1>
+
+<form action="" method="post">
+
+    <label>login <input type="text" id="login" /></label>
+    <label>senha <input type="text" id="senha" /></label>
+    <input type="button" value="entrar" id="entrar" />
+
+</form>
+
+    <div id="alertas"></div>
+
+</body>
+</html>
