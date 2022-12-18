@@ -1,3 +1,6 @@
+<?php 
+include 'controllers/checkSession.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +32,7 @@ a {
 
 <h1>hackton.unialfa</h1>
 
-<p><a href="views/cadastraIMCAluno.php">Usuarios</a> | <a href="views/cadastraIMCAluno.php">IMC</a></p>
+<p><a href="views/cadastraIMCAluno.php">Usuarios</a> | <a href="views/cadastraIMCAluno.php">IMC</a> | <a href="controllers/logout.php">sair</a></p>
 
 </body>
 </html>

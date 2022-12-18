@@ -241,4 +241,34 @@ abstract class Record {
         }
     }
 
+    public function findUserWithWhere(){
+         // monta a instrucao SELECT
+         $sql = "SELECT * FROM {$this->getEntity()}";
+
+         $prepared = $this->prepare($this->data);
+
+         if($prepared){
+            foreach($prepared as $column => $value){
+                if($column !== $this->getCampoID()){
+                    $set[] = "{$column} = {$value}";
+                }
+            }
+        }
+        $sql .= ' WHERE '. implode(' AND ',$set);
+
+        // obtem a transacao ativa
+        if($conn = Transacao::get()){
+
+            Transacao::log($sql);
+            $result = $conn->query($sql);
+            // retorna os dados do banco
+            $row = $result->fetch();
+            return $row;
+
+        }else{
+            throw new Exception('Não há transacao ativa!');
+        }
+
+    }
+
 }

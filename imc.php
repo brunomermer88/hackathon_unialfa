@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
@@ -24,11 +24,13 @@ try
         Transacao::setLogger(new LoggerTXT('logs/log.txt'));
         
         $aluno = new Usuario($codigoAluno);
-        
+
         $imc = new Imc();
         $imc->peso = $peso;
         $imc->imc = $peso / ($aluno->altura*$aluno->altura);
         $imc->idAluno = $aluno->id;
+        $imc->idProfessor = $_SESSION['codUsuario'];
+
         $imc->store();
 
         Transacao::close();

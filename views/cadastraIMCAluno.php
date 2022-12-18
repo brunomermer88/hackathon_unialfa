@@ -1,7 +1,5 @@
 <?php
-
-
-
+include '../controllers/checkSession.php';
 ?>
 
 <!DOCTYPE html>
@@ -55,6 +53,15 @@
             margin:0 auto;
             padding:4px;
             text-align:center;
+        }
+
+        #linkRodape {
+            text-align:center;
+        }
+
+        #linkRodape a {
+            text-decoration:none;
+            color:black;
         }
 
     </style>
@@ -119,6 +126,8 @@
             <input type="button" value="Cadastrar" id="cadastrarPeso" />
         </form>
     </div>
+
+    <p id="linkRodape"><a href="../index.php">ir para a index</a></p>
 
 </body>
 

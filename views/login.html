@@ -42,22 +42,29 @@ form input {
 
         $("#entrar").click(function(){
 
-            alert('aqui');
 
             var login = $("#login").val();
             var senha = $("#senha").val();
+
+            var erroPadrao = '<div style="margin:6px;font-size:14px;text-align:center;font-family:verdana;color:red;font-weight:bold;">Usuario ou senha inválidos.</div>';
 
             if (login == "" && senha == ""){
                 $("#alertas").html('<div style="margin:6px;font-size:14px;text-align:center;font-family:verdana;color:red;font-weight:bold;">Usuario ou senha inválidos.</div>');
             }
 
             $.post(window.location.origin+"/login.php", 
-            {action: 'cadastrar', 
+            {action: 'autenticar', 
             login: login,
             senha: senha,
             }, 
             function(data, status){
-                window.location.reload();
+
+                if(data){
+                    window.location.replace(window.location.origin+'/index.php');
+                }else{
+                    $("#alertas").html(erroPadrao);
+                }
+
             });
 
         });
