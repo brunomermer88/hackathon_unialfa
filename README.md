@@ -1,6 +1,6 @@
 # hackathon_unialfa
 
-# O banco utilizado no desenvolvimento foi o SQL SERVER, logo abaixo a estrutura das duas tabelas.
+### O banco utilizado no desenvolvimento foi o SQL SERVER, logo abaixo a estrutura das duas tabelas.
 
 USE [academia]
 GO
